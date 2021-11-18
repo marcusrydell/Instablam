@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react'
+import React, {useRef, useState, useEffect} from 'react'
 import {GrGallery} from 'react-icons/gr'
 import {Link} from 'react-router-dom'
 import Webcam from 'react-webcam'
@@ -7,9 +7,10 @@ const galleryIconStyle = {
     fontSize: '3rem'
 }
 function Capture() {
+   
+const [imageTaken, setImageTaken] = useState(JSON.parse(localStorage.getItem('Images')));
 
-const [imageTaken, setImageTaken] = useState('');
-const [images, setImages] = useState([])
+
 const videoConstraints= {
     widht: 400,
     height: 400,
@@ -19,10 +20,13 @@ const webcamRef = useRef(null)
 
 function captureImage(){
     const imgSrc = webcamRef.current.getScreenshot();
-    setImageTaken(imgSrc)
-    setImages(images =>[...images, imgSrc])
-    localStorage.setItem('Image', JSON.stringify(images))
-}
+    setImageTaken(imageTaken => [...imageTaken, imgSrc])
+} 
+
+useEffect(() => {
+    localStorage.setItem('Images', JSON.stringify(imageTaken))
+
+}, [imageTaken])
 
     return (
         <>
@@ -35,7 +39,6 @@ function captureImage(){
                 ref={webcamRef}
                 videoConstraints={videoConstraints}/>
             <button onClick={captureImage}>Take a photo</button> 
-            <img src={imageTaken} ></img>
     </>)
 }
 

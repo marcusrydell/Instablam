@@ -1,7 +1,7 @@
 import React ,{useState,useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import {AiFillCamera} from 'react-icons/ai'
-
+import style from '../styles/Gallery.module.css'
 const iconStyle = {
     color: 'black',
     opacity: '0.65',
@@ -9,8 +9,8 @@ const iconStyle = {
 }
 
 function Gallery() {
-     const images = JSON.parse(localStorage.getItem('Image'))
-    
+    const images = JSON.parse(localStorage.getItem('Images'))
+    console.log(images)
     return (
         <div>
             <h2>Gallery</h2>
@@ -18,8 +18,8 @@ function Gallery() {
                 <AiFillCamera style={iconStyle}/>
             </Link>
 
-            <div className="imageContainer">
-                {images?.map((img)=>{
+            <div className={style.imageContainer}>
+                {images.map((img)=>{
                     return <img src={img}></img>
                 })}
             </div>

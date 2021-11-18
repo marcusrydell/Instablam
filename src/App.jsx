@@ -1,6 +1,7 @@
 
 import './App.css'
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
+import{useState} from 'react'
 import Gallery from './pages/Gallery'
 import Capture from './pages/Capture'
 
@@ -11,8 +12,8 @@ function App() {
    
       <BrowserRouter>
         <Routes>
-            <Route path="/" element={<Gallery/>} />
-            <Route path="/capture" element={<Capture/>} />
+            <Route path="/" element={<Gallery />} />
+            <Route path="/capture" element={<Capture />} />
         </Routes>
       </BrowserRouter>
 
