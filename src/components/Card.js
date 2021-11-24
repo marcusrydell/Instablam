@@ -2,16 +2,15 @@ import React from 'react'
 import styled from 'styled-components'
 import {MdDeleteForever} from 'react-icons/md'
 import {BsDownload} from 'react-icons/bs'
-function Card({info, index, deleteImage}) {
-    function downloadImage(){
-        console.log('download',info.src)
+function Card({info, index, deleteImage, downloadImage}) {
 
-    }
 
     return (
         <Wrapper>
             <BtnWrapper>
-                <Btn onClick={downloadImage}> <BsDownload /> </Btn>
+                <Btn onClick={() => {
+                    downloadImage(index)
+                }}> <BsDownload /> </Btn>
                 <Btn onClick={() => {
                     deleteImage(index)
                 }}> <MdDeleteForever /> </Btn>
@@ -19,8 +18,9 @@ function Card({info, index, deleteImage}) {
             <Image
                 src={info.src} 
             />
-            <Info>{info.date}
-            {info.location}
+            <Info>
+                <p>{info.date}</p>                
+                <p>{info.location}</p>
             </Info>
         </Wrapper>
 
@@ -34,7 +34,7 @@ const Wrapper = styled.div`
     border: 1px solid rgba(0,0,0, 0.1);
     padding: 1rem;
     overflow: hidden;
-    height: 200px;
+    height: 250px;
     width: 200px;
     display: flex;
     flex-direction: column;
@@ -60,8 +60,8 @@ const Btn = styled.a`
     }
 `
 
-const Info = styled.p`
+const Info = styled.div`
     padding: 0;
     display: flex;
-
+    flex-direction: column;
 `

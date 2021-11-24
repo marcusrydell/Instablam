@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import Card from '../components/Card'
-
+import {saveAs} from 'file-saver'
 export default function GalleryPage() {
 
     const [storedImages,setStoredImages] = useState(JSON.parse(localStorage.getItem('data')));
@@ -12,6 +12,11 @@ export default function GalleryPage() {
         setImageArr(storedData)
     }, [storedImages])
 
+    async function downloadImage(index){
+        const download = await fetch(storedImages[index].src)
+        const blob = await download.blob();
+        saveAs(blob, 'image.jpg')
+    }
     function deleteImage(index){
         imageArr.splice(index, 1);
         console.log('detl', index)
@@ -23,7 +28,7 @@ export default function GalleryPage() {
         <div>
             <Grid >
                 {imageArr?.map((img, index)=> (
-                    <Card info={img} key={index} index={index} deleteImage={deleteImage}/>
+                    <Card info={img} key={index} index={index} deleteImage={deleteImage} downloadImage={downloadImage}/>
                 ))}
             </Grid>
         </div>
