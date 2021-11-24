@@ -9,8 +9,7 @@ const iconStyle = {
 }
 
 function Gallery() {
-    const images = JSON.parse(localStorage.getItem('Images'))
-    console.log(images)
+ 
     return (
         <div>
             <h2>Gallery</h2>
@@ -19,9 +18,7 @@ function Gallery() {
             </Link>
 
             <div className={style.imageContainer}>
-                {images.map((img)=>{
-                    return <img src={img}></img>
-                })}
+
             </div>
         </div>
     )

@@ -1,11 +1,11 @@
 .imageContainer {
     display: flex;
-    max-width: 80vw;
-    height: 80vh;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .imageContainer img {
     height: 175px;
     width: 175px;
+    margin: 0.1rem;
 }
