@@ -12,22 +12,22 @@ function CapturePage() {
         facingMode: 'user'
     }
     useEffect(() => {
+        const onSuccess = async (pos) =>{
+            const adress = await lookUpPosition(pos.coords.latitude, pos.coords.longitude)
+            if(adress){ 
+                setAdress(adress) 
+            }    
+        }
         if('geolocation' in navigator){
-            navigator.geolocation.getCurrentPosition(
-                onSuccess,
-                error=>{
+            navigator.geolocation.getCurrentPosition(onSuccess,(error)=>{
                     setAdress({country:'Unknown ' , city: 'location'})
                 }
             )
         }
+
+    
     }, [])
 
-    async function onSuccess(pos){
-        const adress = await lookUpPosition(pos.coords.latitude, pos.coords.longitude)
-        if(adress){ 
-            setAdress(adress) 
-        }    
-    }
 
     async function lookUpPosition(lat,long){
         try{
@@ -47,7 +47,7 @@ function CapturePage() {
         const imgInfo = {
             src: imgSrc,
             date: new Date().toLocaleDateString(),
-            location: adress.country + adress.city
+            location: adress.country ` `+ adress.city
         }
         setImageTaken(imageTaken => [...imageTaken, imgInfo])
     }
