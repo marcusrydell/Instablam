@@ -5,7 +5,7 @@ import style from '../styles/capturePage.module.css'
 function CapturePage() {
 
     const [imageTaken, setImageTaken] = useState([]);
-    const [adress,setAdress] = useState('')
+    const [adress,setAdress] = useState({})
     const webcamRef = useRef(null)
 
     const videoConstraints= {
@@ -15,12 +15,15 @@ function CapturePage() {
         const onSuccess = async (pos) =>{
             const adress = await lookUpPosition(pos.coords.latitude, pos.coords.longitude)
             if(adress){ 
-                setAdress(adress) 
+                setAdress({
+                    country: adress.prov,
+                    city: adress.city
+                }) 
             }    
         }
         if('geolocation' in navigator){
             navigator.geolocation.getCurrentPosition(onSuccess,(error)=>{
-                    setAdress({country:'Unknown ' , city: 'location'})
+                    setAdress({error: error.message})
                 }
             )
         }
@@ -31,8 +34,9 @@ function CapturePage() {
 
     async function lookUpPosition(lat,long){
         try{
-            const response = await fetch(`https://geocode.xyz/${lat},${long}?geoit=json`)
+            const response = await fetch(`https://geocode.xyz/${lat},${long}?geoit=json&auth=216031875532726209583x64218`)
             const data = await response.json()
+            console.log(data)
             if(data.error){
                 console.log(data.error)
             }
@@ -47,7 +51,7 @@ function CapturePage() {
         const imgInfo = {
             src: imgSrc,
             date: new Date().toLocaleDateString(),
-            location: adress.country + adress.city
+            location: adress.city
         }
         setImageTaken(imageTaken => [...imageTaken, imgInfo])
     }
