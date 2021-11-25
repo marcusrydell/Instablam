@@ -47,7 +47,7 @@ function CapturePage() {
         const imgInfo = {
             src: imgSrc,
             date: new Date().toLocaleDateString(),
-            location: adress.country ` `+ adress.city
+            location: adress.country + adress.city
         }
         setImageTaken(imageTaken => [...imageTaken, imgInfo])
     }
